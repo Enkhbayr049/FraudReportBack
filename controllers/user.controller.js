@@ -13,14 +13,22 @@ exports.getAllUsers = async (req, res) => {
 };
 
 exports.createUser = async (req, res) => {
-  const { username, email, password } = req.body;
+  const { username, email, password, first_name, last_name, phone_number } =
+    req.body;
 
   // Энд нууц үгийг encrypt хийх (жишээ нь, bcrypt ашиглан)
   // const passwordHash = await bcrypt.hash(password, 10);
   const passwordHash = `hashed_${password}`; // Зөвхөн жишээ
 
   try {
-    const newUserId = await UserModel.create(username, email, passwordHash);
+    const newUserId = await UserModel.create(
+      username,
+      email,
+      passwordHash,
+      first_name,
+      last_name,
+      phone_number
+    );
     res.status(201).json({
       message: "User created successfully",
       id: newUserId,
