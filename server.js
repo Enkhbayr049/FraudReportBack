@@ -1,8 +1,9 @@
 const express = require("express");
-const cors = require("cors"); // <-- нэмэх
+const cors = require("cors");
 require("dotenv").config();
 const userRoutes = require("./routes/user.routes");
 const reportRoutes = require("./routes/report.routes");
+const authRoutes = require("./routes/auth.routes"); // <-- Нэмэх
 
 const app = express();
 
@@ -12,7 +13,7 @@ app.use(express.json());
 // CORS тохиргоо
 app.use(
   cors({
-    origin: "http://localhost:3039", // зөвшөөрөх фронтэнд
+    origin: "http://localhost:3039",
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
@@ -21,6 +22,7 @@ app.use(
 // API Routes
 app.use("/api/users", userRoutes);
 app.use("/api/reports", reportRoutes);
+app.use("/api/auth", authRoutes); // <-- Нэвтрэх маршрутыг нэмэх
 
 // Энгийн тест маршрут
 app.get("/", (req, res) => {
